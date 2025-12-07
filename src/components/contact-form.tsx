@@ -29,7 +29,7 @@ const initialFormData: FormData = {
 export function ContactForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'validation-error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -43,21 +43,42 @@ export function ContactForm() {
 
     // Validate required fields
     if (!formData.name || !formData.email || !formData.message) {
-      setSubmitStatus('error');
+      setSubmitStatus('validation-error');
       setIsSubmitting(false);
       return;
     }
 
-    // TODO: Replace with actual form submission (API route or external service)
-    // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) });
-    console.log('Form submitted:', formData);
+    try {
+      const response = await fetch('https://formspree.io/f/mwpgbdbl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          eventType: formData.eventType,
+          eventDate: formData.eventDate,
+          eventLocation: formData.eventLocation,
+          guestCount: formData.guestCount,
+          budgetRange: formData.budgetRange,
+          message: formData.message,
+          _subject: `New Booking Inquiry from ${formData.name}`,
+        }),
+      });
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData(initialFormData);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch {
+      setSubmitStatus('error');
+    }
 
-    setSubmitStatus('success');
     setIsSubmitting(false);
-    setFormData(initialFormData);
   };
 
   return (
@@ -228,9 +249,15 @@ export function ContactForm() {
         </div>
       )}
 
-      {submitStatus === 'error' && (
+      {submitStatus === 'validation-error' && (
         <div className="p-4 bg-[#FF2436]/10 border border-[#FF2436]/30 rounded-lg text-[#FF2436] text-sm">
           <strong>Please fill in all required fields.</strong> Name, email, and message are required.
+        </div>
+      )}
+
+      {submitStatus === 'error' && (
+        <div className="p-4 bg-[#FF2436]/10 border border-[#FF2436]/30 rounded-lg text-[#FF2436] text-sm">
+          <strong>Something went wrong.</strong> Please try again or email directly.
         </div>
       )}
 

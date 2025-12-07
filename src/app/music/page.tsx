@@ -1,10 +1,22 @@
+import type { Metadata } from 'next';
 import { SectionShell } from '@/components/section-shell';
 import { ComicMusicPlayer } from '@/components/comic-music-player';
 import { tracks } from '@/data/tracks';
+import { siteConfig } from '@/config/site';
 
-export const metadata = {
-  title: 'Music & Mixes | DJ Miles Morales',
-  description: 'Listen to DJ Miles Morales mixes and get a taste of what he brings to events. Custom mixes for corporate events, weddings, and nightlife.',
+export const metadata: Metadata = {
+  title: 'Music & Mixes – Open-Format DJ for Corporate, Fashion & Luxury Events',
+  description: 'Listen to DJ Miles Morales mixes and get a taste of what he brings to events. Custom mixes for corporate events, weddings, and nightlife spanning every genre.',
+  openGraph: {
+    title: 'Music & Mixes | DJ Miles Morales',
+    description: 'Listen to DJ Miles Morales mixes. Custom mixes for corporate events, weddings, and nightlife.',
+    url: `${siteConfig.url}/music`,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/music`,
+  },
 };
 
 export default function MusicPage() {
@@ -35,17 +47,17 @@ export default function MusicPage() {
         <SectionShell>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-3">
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-3">
                 Custom Event Mixes
-              </h3>
+              </h2>
               <p className="text-zinc-400 text-sm leading-relaxed">
                 Need a custom mix for your event, brand activation, or project? Miles creates tailored soundscapes that match your vision and audience perfectly.
               </p>
             </div>
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-3">
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-3">
                 Live on Now 92.1
-              </h3>
+              </h2>
               <p className="text-zinc-400 text-sm leading-relaxed">
                 Catch Miles spinning live as part of &quot;The Beat Committee&quot; on Now 92.1. Tune in for the latest mixes and get a taste of his signature sound.
               </p>
@@ -56,4 +68,3 @@ export default function MusicPage() {
     </>
   );
 }
-

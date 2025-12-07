@@ -1,9 +1,21 @@
+import type { Metadata } from 'next';
 import { SectionShell } from '@/components/section-shell';
 import { ContactForm } from '@/components/contact-form';
+import { siteConfig } from '@/config/site';
 
-export const metadata = {
-  title: 'Contact | DJ Miles Morales',
-  description: 'Book DJ Miles Morales for your next event. Contact for availability, pricing, and custom quotes.',
+export const metadata: Metadata = {
+  title: 'Contact & Booking – Open-Format DJ for Corporate, Fashion & Luxury Events',
+  description: 'Book DJ Miles Morales for your next event. Contact for availability, pricing, and custom quotes. Based in Chambersburg, PA and available nationwide.',
+  openGraph: {
+    title: 'Contact & Booking | DJ Miles Morales',
+    description: 'Book DJ Miles Morales for your next event. Contact for availability, pricing, and custom quotes.',
+    url: `${siteConfig.url}/contact`,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/contact`,
+  },
 };
 
 export default function ContactPage() {
@@ -38,35 +50,35 @@ export default function ContactPage() {
           <div className="space-y-6">
             {/* Quick Contact */}
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-xl text-[#F5F5F5] uppercase tracking-wide mb-4">
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-xl text-[#F5F5F5] uppercase tracking-wide mb-4">
                 Quick Contact
-              </h3>
+              </h2>
               <div className="space-y-4 text-sm">
                 <div>
                   <p className="text-zinc-500 uppercase tracking-wider text-xs mb-1">Email</p>
                   <a 
-                    href="mailto:booking@milesmorales.dj" 
+                    href={`mailto:${siteConfig.author.email}`}
                     className="text-[#FF2436] hover:text-[#ff4d5c] transition-colors"
                   >
-                    booking@milesmorales.dj
+                    {siteConfig.author.email}
                   </a>
                 </div>
                 <div>
                   <p className="text-zinc-500 uppercase tracking-wider text-xs mb-1">Based In</p>
-                  <p className="text-zinc-300">Chambersburg, PA</p>
+                  <p className="text-zinc-300">{siteConfig.location.city}, {siteConfig.location.state}</p>
                 </div>
                 <div>
                   <p className="text-zinc-500 uppercase tracking-wider text-xs mb-1">Service Area</p>
-                  <p className="text-zinc-300">Available Nationwide</p>
+                  <p className="text-zinc-300">{siteConfig.location.serviceArea}</p>
                 </div>
               </div>
             </div>
 
             {/* Response Time */}
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-xl text-[#F5F5F5] uppercase tracking-wide mb-4">
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-xl text-[#F5F5F5] uppercase tracking-wide mb-4">
                 What to Expect
-              </h3>
+              </h2>
               <ul className="space-y-3 text-zinc-400 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="text-[#FF2436]">1.</span>
@@ -87,15 +99,17 @@ export default function ContactPage() {
               </ul>
             </div>
 
-            {/* Social Links Placeholder */}
+            {/* Social Links */}
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-xl text-[#F5F5F5] uppercase tracking-wide mb-4">
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-xl text-[#F5F5F5] uppercase tracking-wide mb-4">
                 Follow Along
-              </h3>
+              </h2>
               <div className="flex gap-3">
                 {/* Instagram */}
                 <a 
-                  href="#" 
+                  href={siteConfig.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-zinc-800 hover:bg-[#FF2436] transition-colors flex items-center justify-center text-zinc-400 hover:text-white"
                   aria-label="Instagram"
                 >
@@ -105,7 +119,9 @@ export default function ContactPage() {
                 </a>
                 {/* Facebook */}
                 <a 
-                  href="#" 
+                  href={siteConfig.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-zinc-800 hover:bg-[#FF2436] transition-colors flex items-center justify-center text-zinc-400 hover:text-white"
                   aria-label="Facebook"
                 >
@@ -115,7 +131,9 @@ export default function ContactPage() {
                 </a>
                 {/* Twitter/X */}
                 <a 
-                  href="#" 
+                  href={siteConfig.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-zinc-800 hover:bg-[#FF2436] transition-colors flex items-center justify-center text-zinc-400 hover:text-white"
                   aria-label="Twitter"
                 >
@@ -125,7 +143,9 @@ export default function ContactPage() {
                 </a>
                 {/* TikTok */}
                 <a 
-                  href="#" 
+                  href={siteConfig.social.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-zinc-800 hover:bg-[#FF2436] transition-colors flex items-center justify-center text-zinc-400 hover:text-white"
                   aria-label="TikTok"
                 >
@@ -134,10 +154,6 @@ export default function ContactPage() {
                   </svg>
                 </a>
               </div>
-              <p className="text-zinc-600 text-xs mt-3">
-                {/* TODO: Add actual social media links */}
-                Social links coming soon
-              </p>
             </div>
           </div>
         </div>
@@ -145,4 +161,3 @@ export default function ContactPage() {
     </>
   );
 }
-

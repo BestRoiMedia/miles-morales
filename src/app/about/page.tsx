@@ -1,15 +1,35 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { SectionShell } from '@/components/section-shell';
 import { ComicCard } from '@/components/comic-card';
+import { siteConfig } from '@/config/site';
+import { SeoJsonLd } from '@/components/seo-json-ld';
+import { generatePersonSchema } from '@/lib/seo-schema';
 
-export const metadata = {
-  title: 'About | DJ Miles Morales',
-  description: 'Learn about DJ Miles Morales — a skillful, experienced, and versatile open-format DJ based in Chambersburg, PA.',
+export const metadata: Metadata = {
+  title: 'About – Open-Format DJ for Corporate, Fashion & Luxury Events',
+  description: 'Learn about DJ Miles Morales — a skillful, experienced, and versatile open-format DJ based in Chambersburg, PA. From corporate galas to weddings, Miles brings the perfect energy to every event.',
+  openGraph: {
+    title: 'About DJ Miles Morales',
+    description: 'Skillful, experienced, and versatile. Learn about one of the premier open-format DJs in the country.',
+    url: `${siteConfig.url}/about`,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/about`,
+  },
 };
 
 export default function AboutPage() {
+  // Generate extended Person schema for about page
+  const personSchema = generatePersonSchema({ extended: true });
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <SeoJsonLd schema={personSchema} />
+
       {/* Page Header */}
       <section className="pt-12 pb-8 border-b border-zinc-800">
         <SectionShell>
@@ -35,7 +55,7 @@ export default function AboutPage() {
             </div>
 
             {/* What He's Known For */}
-            <ComicCard title="What He's Known For">
+            <ComicCard title="What He's Known For" headingLevel="h2">
               <ul className="mt-4 space-y-3 text-zinc-400">
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF2436] mt-1">◆</span>
@@ -57,7 +77,7 @@ export default function AboutPage() {
             </ComicCard>
 
             {/* Genres He Blends */}
-            <ComicCard title="Genres He Blends">
+            <ComicCard title="Genres He Blends" headingLevel="h2">
               <div className="mt-4 flex flex-wrap gap-2">
                 {[
                   'Current Top 40',
@@ -85,7 +105,7 @@ export default function AboutPage() {
             </ComicCard>
 
             {/* The Music Collection */}
-            <ComicCard title="The Music Collection">
+            <ComicCard title="The Music Collection" headingLevel="h2">
               <p className="mt-4 text-zinc-400 leading-relaxed">
                 Miles has built an extensive and eclectic music collection over his years behind the decks. This vast library allows him to create the perfect atmosphere at any event — whether you need sophisticated background music for a cocktail hour or high-energy bangers to pack the dance floor.
               </p>
@@ -144,4 +164,3 @@ export default function AboutPage() {
     </>
   );
 }
-

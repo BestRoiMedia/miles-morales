@@ -1,10 +1,46 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ComicCard } from '@/components/comic-card';
+import type { Metadata } from 'next';
+import { siteConfig } from '@/config/site';
+import { SeoJsonLd } from '@/components/seo-json-ld';
+import {
+  generatePersonSchema,
+  generateAllServicesSchema,
+} from '@/lib/seo-schema';
+
+export const metadata: Metadata = {
+  title: `${siteConfig.name} – Open-Format DJ for Corporate, Fashion & Luxury Events`,
+  description: siteConfig.description,
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.shortDescription,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    type: 'website',
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
+};
 
 export default function HomePage() {
+  // Generate schemas for home page
+  const personSchema = generatePersonSchema();
+  const serviceSchemas = generateAllServicesSchema();
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <SeoJsonLd schema={[personSchema, ...serviceSchemas]} />
+
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
         {/* Background Gradient */}

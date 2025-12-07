@@ -1,9 +1,23 @@
-import { SectionShell } from '@/components/section-shell';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { SectionShell } from '@/components/section-shell';
+import { siteConfig } from '@/config/site';
+import { SeoJsonLd } from '@/components/seo-json-ld';
+import { generatePricingServiceSchemas } from '@/lib/seo-schema';
 
-export const metadata = {
-  title: 'Pricing | DJ Miles Morales',
-  description: 'DJ Miles Morales pricing packages for weddings, corporate events, and private parties. Customized packages available.',
+export const metadata: Metadata = {
+  title: 'Pricing & Packages – Open-Format DJ for Corporate, Fashion & Luxury Events',
+  description: 'DJ Miles Morales pricing packages for weddings, corporate events, and private parties. Starting at $1,999 for Essential Events, $3,499 for Signature Events, and $4,999 for Premier & Corporate.',
+  openGraph: {
+    title: 'Pricing & Packages | DJ Miles Morales',
+    description: 'Professional DJ packages for weddings, corporate events, and private parties. Customized packages available.',
+    url: `${siteConfig.url}/pricing`,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/pricing`,
+  },
 };
 
 const pricingTiers = [
@@ -57,8 +71,14 @@ const pricingTiers = [
 ];
 
 export default function PricingPage() {
+  // Generate pricing service schemas
+  const serviceSchemas = generatePricingServiceSchemas();
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <SeoJsonLd schema={serviceSchemas} />
+
       {/* Page Header */}
       <section className="pt-12 pb-8 border-b border-zinc-800">
         <SectionShell>
@@ -95,9 +115,9 @@ export default function PricingPage() {
               )}
 
               <div className="mb-6">
-                <h3 className="font-[family-name:var(--font-bebas-neue)] text-2xl sm:text-3xl text-[#F5F5F5] uppercase tracking-wide mb-2">
+                <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl sm:text-3xl text-[#F5F5F5] uppercase tracking-wide mb-2">
                   {tier.name}
-                </h3>
+                </h2>
                 <p className="text-zinc-500 text-sm mb-4">
                   {tier.description}
                 </p>
@@ -142,9 +162,9 @@ export default function PricingPage() {
         <SectionShell>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-4">
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-4">
                 What&apos;s Always Included
-              </h3>
+              </h2>
               <ul className="space-y-2 text-zinc-400 text-sm">
                 <li className="flex items-center gap-2">
                   <span className="text-[#FF2436]">◆</span>
@@ -170,9 +190,9 @@ export default function PricingPage() {
             </div>
 
             <div className="comic-panel bg-zinc-900/30 p-6">
-              <h3 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-4">
-                Custom & Add-Ons
-              </h3>
+              <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-4">
+                Custom &amp; Add-Ons
+              </h2>
               <ul className="space-y-2 text-zinc-400 text-sm">
                 <li className="flex items-center gap-2">
                   <span className="text-[#FF2436]">◆</span>
@@ -204,9 +224,9 @@ export default function PricingPage() {
       <section className="border-t border-zinc-800 bg-zinc-900/20">
         <SectionShell>
           <div className="text-center">
-            <h3 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-3">
+            <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-3">
               Travel Information
-            </h3>
+            </h2>
             <p className="text-zinc-400 max-w-2xl mx-auto">
               Based in Chambersburg, PA and available nationwide. Travel fees may apply for events outside the local area. Contact for a custom quote that includes all travel arrangements.
             </p>
@@ -234,4 +254,3 @@ export default function PricingPage() {
     </>
   );
 }
-

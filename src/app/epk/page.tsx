@@ -1,18 +1,39 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import type { Metadata } from 'next';
 import { SectionShell } from '@/components/section-shell';
 import { ComicCard } from '@/components/comic-card';
 import { ComicMusicPlayer } from '@/components/comic-music-player';
 import { epkTracks } from '@/data/tracks';
-import Link from 'next/link';
+import { siteConfig } from '@/config/site';
+import { SeoJsonLd } from '@/components/seo-json-ld';
+import { generatePersonSchema, generateAllServicesSchema } from '@/lib/seo-schema';
 
-export const metadata = {
-  title: 'EPK - Electronic Press Kit | DJ Miles Morales',
-  description: 'DJ Miles Morales Electronic Press Kit. Background, experience, and signature mixes for promoters and corporate clients.',
+export const metadata: Metadata = {
+  title: 'EPK – Electronic Press Kit | Open-Format DJ for Corporate, Fashion & Luxury Events',
+  description: 'DJ Miles Morales Electronic Press Kit. 15+ years of experience, 500+ events performed, serving 50+ cities nationwide. Background, experience, and signature mixes for promoters and corporate clients.',
+  openGraph: {
+    title: 'Electronic Press Kit | DJ Miles Morales',
+    description: 'Professional DJ with 15+ years experience. Press photos, signature mixes, and booking information for promoters and corporate clients.',
+    url: `${siteConfig.url}/epk`,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+  alternates: {
+    canonical: `${siteConfig.url}/epk`,
+  },
 };
 
 export default function EPKPage() {
+  // Generate schemas for EPK page
+  const personSchema = generatePersonSchema({ extended: true });
+  const serviceSchemas = generateAllServicesSchema();
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <SeoJsonLd schema={[personSchema, ...serviceSchemas]} />
+
       {/* Hero Section */}
       <section className="relative py-20 sm:py-28 border-b border-zinc-800 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050509] to-[#1a0004]" />
@@ -109,7 +130,7 @@ export default function EPKPage() {
       <section className="border-t border-zinc-800">
         <SectionShell>
           <div className="grid lg:grid-cols-2 gap-8">
-            <ComicCard title="Background & Radio">
+            <ComicCard title="Background & Radio" headingLevel="h2">
               <div className="mt-4 space-y-4 text-zinc-400 leading-relaxed">
                 <p>
                   Miles Morales is the owner of <strong className="text-[#F5F5F5]">&quot;Not Your Average DJ&apos;s&quot;</strong>, a premier DJ entertainment company. He&apos;s also a proud member of <strong className="text-[#F5F5F5]">&quot;The Beat Committee&quot;</strong> on Now 92.1, where he regularly showcases his signature sound to listeners across the region.
@@ -120,7 +141,7 @@ export default function EPKPage() {
               </div>
             </ComicCard>
 
-            <ComicCard title="Experience & Versatility">
+            <ComicCard title="Experience & Versatility" headingLevel="h2">
               <div className="mt-4 space-y-4 text-zinc-400 leading-relaxed">
                 <p>
                   Raised by his grandparents, Miles grew up surrounded by music. From Big Band and Rock to Motown and Disco, the house was never quiet. This early exposure shaped his eclectic taste and deep appreciation for all genres.
@@ -137,11 +158,14 @@ export default function EPKPage() {
       {/* Events & Venues */}
       <section className="border-t border-zinc-800">
         <SectionShell>
-          <ComicCard title="Events & Venues" className="max-w-none">
-            <div className="mt-4 grid sm:grid-cols-2 gap-4 text-zinc-400">
+          <h2 className="font-[family-name:var(--font-bebas-neue)] text-3xl text-[#F5F5F5] uppercase tracking-wide mb-6">
+            Events &amp; Venues
+          </h2>
+          <div className="comic-panel bg-zinc-900/50 p-6 border-zinc-800">
+            <div className="grid sm:grid-cols-2 gap-6 text-zinc-400">
               <div>
-                <h4 className="text-[#F5F5F5] font-medium mb-2">Event Types</h4>
-                <ul className="space-y-1 text-sm">
+                <h3 className="text-[#F5F5F5] font-medium mb-3 text-lg">Event Types</h3>
+                <ul className="space-y-1.5 text-sm">
                   <li>• Weddings (conservative to youthful)</li>
                   <li>• Corporate events & conferences</li>
                   <li>• Red carpet premieres</li>
@@ -152,8 +176,8 @@ export default function EPKPage() {
                 </ul>
               </div>
               <div>
-                <h4 className="text-[#F5F5F5] font-medium mb-2">Geographic Range</h4>
-                <ul className="space-y-1 text-sm">
+                <h3 className="text-[#F5F5F5] font-medium mb-3 text-lg">Geographic Range</h3>
+                <ul className="space-y-1.5 text-sm">
                   <li>• Based in Chambersburg, PA</li>
                   <li>• Available nationwide</li>
                   <li>• New York City</li>
@@ -163,53 +187,54 @@ export default function EPKPage() {
                 </ul>
               </div>
             </div>
-          </ComicCard>
+          </div>
         </SectionShell>
       </section>
 
       {/* Musical Diversity */}
       <section className="border-t border-zinc-800">
         <SectionShell>
-          <ComicCard title="Musical Diversity" accentBorder glowEffect>
-            <div className="mt-4">
-              <p className="text-zinc-400 leading-relaxed mb-4">
-                Miles&apos; genre is best described as <em>&quot;everything you love to hear.&quot;</em> His extensive collection spans decades and styles, allowing him to create the perfect atmosphere for any event.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  'Current Top 40',
-                  'House & Techno',
-                  'Hip Hop',
-                  'Reggae',
-                  'Rock',
-                  'Salsa',
-                  'Neo Soul',
-                  "70s Disco",
-                  "80s Classics",
-                  "90s Hits",
-                  'Big Band',
-                  'Motown',
-                  'R&B',
-                  'EDM',
-                  'Latin',
-                ].map((genre) => (
-                  <span
-                    key={genre}
-                    className="px-3 py-1.5 bg-[#FF2436]/10 border border-[#FF2436]/30 rounded-lg text-zinc-300 text-sm"
-                  >
-                    {genre}
-                  </span>
-                ))}
-              </div>
+          <h2 className="font-[family-name:var(--font-bebas-neue)] text-3xl text-[#F5F5F5] uppercase tracking-wide mb-6">
+            Musical Diversity
+          </h2>
+          <div className="comic-panel bg-zinc-900/50 p-6 border-[#FF2436] shadow-[0_0_20px_rgba(255,36,54,0.2)]">
+            <p className="text-zinc-400 leading-relaxed mb-4">
+              Miles&apos; genre is best described as <em>&quot;everything you love to hear.&quot;</em> His extensive collection spans decades and styles, allowing him to create the perfect atmosphere for any event.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                'Current Top 40',
+                'House & Techno',
+                'Hip Hop',
+                'Reggae',
+                'Rock',
+                'Salsa',
+                'Neo Soul',
+                "70s Disco",
+                "80s Classics",
+                "90s Hits",
+                'Big Band',
+                'Motown',
+                'R&B',
+                'EDM',
+                'Latin',
+              ].map((genre) => (
+                <span
+                  key={genre}
+                  className="px-3 py-1.5 bg-[#FF2436]/10 border border-[#FF2436]/30 rounded-lg text-zinc-300 text-sm"
+                >
+                  {genre}
+                </span>
+              ))}
             </div>
-          </ComicCard>
+          </div>
         </SectionShell>
       </section>
 
       {/* Professionalism & Service */}
       <section className="border-t border-zinc-800">
         <SectionShell>
-          <ComicCard title="Professionalism & Service">
+          <ComicCard title="Professionalism & Service" headingLevel="h2">
             <div className="mt-4 space-y-4 text-zinc-400 leading-relaxed">
               <p>
                 When you book Miles Morales, you&apos;re getting more than a DJ — you&apos;re getting a true professional who takes pride in every performance. His skills include:
@@ -260,4 +285,3 @@ export default function EPKPage() {
     </>
   );
 }
-

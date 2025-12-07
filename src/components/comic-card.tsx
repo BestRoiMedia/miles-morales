@@ -7,6 +7,7 @@ interface ComicCardProps {
   className?: string;
   accentBorder?: boolean;
   glowEffect?: boolean;
+  headingLevel?: 'h2' | 'h3' | 'h4';
 }
 
 export function ComicCard({ 
@@ -15,8 +16,11 @@ export function ComicCard({
   children, 
   className = '',
   accentBorder = false,
-  glowEffect = false
+  glowEffect = false,
+  headingLevel = 'h3'
 }: ComicCardProps) {
+  const HeadingTag = headingLevel;
+  
   return (
     <div 
       className={`
@@ -28,9 +32,9 @@ export function ComicCard({
         ${className}
       `}
     >
-      <h3 className="font-display text-2xl sm:text-3xl text-[#F5F5F5] uppercase tracking-wide mb-3">
+      <HeadingTag className="font-display text-2xl sm:text-3xl text-[#F5F5F5] uppercase tracking-wide mb-3">
         {title}
-      </h3>
+      </HeadingTag>
       {description && (
         <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
           {description}
@@ -40,4 +44,3 @@ export function ComicCard({
     </div>
   );
 }
-
