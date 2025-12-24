@@ -207,7 +207,7 @@ export function RotatingVinylGallery({ images, className }: RotatingVinylGallery
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
-                style={{ imageRendering: 'high-quality' }}
+                style={{ imageRendering: 'auto' }}
               />
             </div>
 
