@@ -32,7 +32,7 @@ export interface PersonSchema extends BaseSchema {
 
 // Organization/PerformingGroup Schema
 export interface OrganizationSchema extends BaseSchema {
-  '@type': 'PerformingGroup' | 'Organization' | 'LocalBusiness';
+  '@type': 'PerformingGroup' | 'Organization' | 'LocalBusiness' | 'EntertainmentBusiness';
   name: string;
   description?: string;
   url?: string;
@@ -45,7 +45,7 @@ export interface OrganizationSchema extends BaseSchema {
     addressRegion: string;
     addressCountry: string;
   };
-  areaServed?: string;
+  areaServed?: string | string[];
   contactPoint?: {
     '@type': 'ContactPoint';
     email?: string;
@@ -63,8 +63,12 @@ export interface ServiceSchema extends BaseSchema {
     name: string;
     url?: string;
   };
-  serviceType?: string;
-  areaServed?: string;
+  serviceType?: string | string[];
+  areaServed?: string | {
+    '@type': string;
+    name: string;
+    addressRegion?: string;
+  };
   offers?: {
     '@type': 'Offer';
     price?: string;
