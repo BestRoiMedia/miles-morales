@@ -17,6 +17,7 @@ export const siteConfig = {
     name: 'DJ Miles Morales',
     jobTitle: 'DJ / Open-Format DJ',
     email: 'booking@djmilesmorales.com',
+    phone: '301-991-0906',
   },
   
   // Location

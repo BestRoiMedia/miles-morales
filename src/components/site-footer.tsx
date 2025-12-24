@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { siteConfig } from '@/config/site';
 
 export function SiteFooter() {
   return (
@@ -10,9 +11,15 @@ export function SiteFooter() {
             <p className="font-display text-xl text-[#F5F5F5] tracking-wider mb-1">
               DJ MILES MORALES
             </p>
-            <p className="text-zinc-500 text-sm">
+            <p className="text-zinc-500 text-sm mb-1">
               Chambersburg, PA · Available Nationwide
             </p>
+            <a 
+              href={`tel:${siteConfig.author.phone}`}
+              className="text-[#FF2436] hover:text-[#ff4d5c] text-sm font-medium transition-colors"
+            >
+              {siteConfig.author.phone}
+            </a>
           </div>
 
           {/* Right: Links & Copyright */}
@@ -35,6 +42,20 @@ export function SiteFooter() {
               © {new Date().getFullYear()} DJ Miles Morales. All rights reserved.
             </p>
           </div>
+        </div>
+        {/* Built by credit */}
+        <div className="mt-6 pt-6 border-t border-zinc-800 text-center">
+          <p className="text-zinc-600 text-xs">
+            Built by{' '}
+            <a 
+              href="https://bestroi.media" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-zinc-400 hover:text-[#FF2436] transition-colors"
+            >
+              Best ROI Media
+            </a>
+          </p>
         </div>
       </div>
     </footer>

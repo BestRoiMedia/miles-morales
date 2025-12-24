@@ -55,6 +55,15 @@ export default function ContactPage() {
               </h2>
               <div className="space-y-4 text-sm">
                 <div>
+                  <p className="text-zinc-500 uppercase tracking-wider text-xs mb-1">Phone</p>
+                  <a 
+                    href="tel:301-991-0906"
+                    className="text-[#FF2436] hover:text-[#ff4d5c] transition-colors"
+                  >
+                    301-991-0906
+                  </a>
+                </div>
+                <div>
                   <p className="text-zinc-500 uppercase tracking-wider text-xs mb-1">Email</p>
                   <a 
                     href="mailto:koran.dunbar@gmail.com"

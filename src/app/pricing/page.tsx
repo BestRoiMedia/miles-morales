@@ -243,12 +243,20 @@ export default function PricingPage() {
           <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
             Every event is unique, and pricing is tailored to your specific needs. Reach out for a custom quote.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-10 py-4 bg-[#FF2436] hover:bg-[#ff4d5c] text-white font-display text-xl uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:-translate-y-0.5"
-          >
-            Request a Quote
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-10 py-4 bg-[#FF2436] hover:bg-[#ff4d5c] text-white font-display text-xl uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:-translate-y-0.5"
+            >
+              Request a Quote
+            </Link>
+            <a
+              href={`tel:${siteConfig.author.phone}`}
+              className="inline-flex items-center justify-center px-10 py-4 border-2 border-zinc-700 hover:border-[#FF2436] text-zinc-300 hover:text-[#FF2436] font-display text-xl uppercase tracking-wider rounded-lg transition-all hover:-translate-y-0.5"
+            >
+              Call {siteConfig.author.phone}
+            </a>
+          </div>
         </SectionShell>
       </section>
     </>

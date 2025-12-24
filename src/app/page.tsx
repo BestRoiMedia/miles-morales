@@ -215,12 +215,20 @@ export default function HomePage() {
           <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
             Let&apos;s talk about your vision. Whether it&apos;s an intimate gathering or a thousand-person gala, I&apos;ll bring the energy and expertise to make it legendary.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-10 py-4 bg-[#FF2436] hover:bg-[#ff4d5c] text-white font-display text-xl uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:-translate-y-0.5"
-          >
-            Get in Touch
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-10 py-4 bg-[#FF2436] hover:bg-[#ff4d5c] text-white font-display text-xl uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-red-500/20 hover:shadow-red-500/30 hover:-translate-y-0.5"
+            >
+              Get in Touch
+            </Link>
+            <a
+              href={`tel:${siteConfig.author.phone}`}
+              className="inline-flex items-center justify-center px-10 py-4 border-2 border-zinc-700 hover:border-[#FF2436] text-zinc-300 hover:text-[#FF2436] font-display text-xl uppercase tracking-wider rounded-lg transition-all hover:-translate-y-0.5"
+            >
+              Call {siteConfig.author.phone}
+            </a>
+          </div>
         </div>
       </section>
     </>
