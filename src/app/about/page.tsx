@@ -120,7 +120,7 @@ export default function AboutPage() {
             {/* Main Photo - B&W Portrait */}
             <div className="comic-panel aspect-[4/5] overflow-hidden rotate-2 hover:rotate-0 transition-transform">
               <Image
-                src="/images/miles-morales-bw.jpg"
+                src="https://images.bestroi.media/miles-morales/image11.avif"
                 alt="DJ Miles Morales - Portrait"
                 fill
                 className="object-cover object-top"
@@ -130,7 +130,7 @@ export default function AboutPage() {
             {/* Secondary Photo - Wedding Setup */}
             <div className="comic-panel aspect-square overflow-hidden -rotate-1 hover:rotate-0 transition-transform">
               <Image
-                src="/images/djing-at-a-wedding.jpg"
+                src="https://images.bestroi.media/miles-morales/image7.avif"
                 alt="DJ Miles Morales at a wedding"
                 fill
                 className="object-cover object-center"
@@ -140,10 +140,10 @@ export default function AboutPage() {
             {/* Third Photo - Club Performance */}
             <div className="comic-panel aspect-video overflow-hidden rotate-1 hover:rotate-0 transition-transform">
               <Image
-                src="/images/djing-at-a-club.jpg"
+                src="https://images.bestroi.media/miles-morales/image9.avif"
                 alt="DJ Miles Morales performing at a club"
                 fill
-                className="object-cover object-center"
+                className="object-cover object-top"
               />
             </div>
           </div>

@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { SectionShell } from '@/components/section-shell';
 import { ComicCard } from '@/components/comic-card';
 import { ComicMusicPlayer } from '@/components/comic-music-player';
+import { RotatingVinylGallery } from '@/components/rotating-vinyl-gallery';
 import { epkTracks } from '@/data/tracks';
 import { siteConfig } from '@/config/site';
 import { SeoJsonLd } from '@/components/seo-json-ld';
@@ -58,40 +58,140 @@ export default function EPKPage() {
           <h2 className="font-[family-name:var(--font-bebas-neue)] text-2xl text-[#F5F5F5] uppercase tracking-wide mb-6">
             Press Photos
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="comic-panel aspect-square overflow-hidden group relative">
-              <Image
-                src="/images/dj-miles-morales.jpg"
-                alt="DJ Miles Morales - Portrait"
-                fill
-                className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="comic-panel aspect-square overflow-hidden group relative">
-              <Image
-                src="/images/miles-morales-bw.jpg"
-                alt="DJ Miles Morales - B&W Portrait"
-                fill
-                className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="comic-panel aspect-square overflow-hidden group relative">
-              <Image
-                src="/images/djing-at-a-wedding.jpg"
-                alt="DJ Miles Morales - Wedding Setup"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="comic-panel aspect-square overflow-hidden group relative">
-              <Image
-                src="/images/dj-miles-djing.jpg"
-                alt="DJ Miles Morales - Pool Party"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          </div>
+          <RotatingVinylGallery
+            images={[
+              {
+                id: 1,
+                title: "DJ Miles Morales",
+                image: "https://images.bestroi.media/miles-morales/DSC_0464%202.avif",
+              },
+              {
+                id: 2,
+                title: "Live Performance",
+                image: "https://images.bestroi.media/miles-morales/Facetune_14-12-2025-10-45-12.avif",
+              },
+              {
+                id: 3,
+                title: "Behind the Decks",
+                image: "https://images.bestroi.media/miles-morales/IMG_1338.avif",
+              },
+              {
+                id: 4,
+                title: "Event Setup",
+                image: "https://images.bestroi.media/miles-morales/IMG_4879.avif",
+              },
+              {
+                id: 5,
+                title: "Club Performance",
+                image: "https://images.bestroi.media/miles-morales/IMG_5089.avif",
+              },
+              {
+                id: 6,
+                title: "Live Mix",
+                image: "https://images.bestroi.media/miles-morales/IMG_6309.avif",
+              },
+              {
+                id: 7,
+                title: "DJ Session",
+                image: "https://images.bestroi.media/miles-morales/IMG_6352.avif",
+              },
+              {
+                id: 8,
+                title: "Professional Setup",
+                image: "https://images.bestroi.media/miles-morales/Koran%20%281%29.avif",
+              },
+              {
+                id: 9,
+                title: "Event Performance",
+                image: "https://images.bestroi.media/miles-morales/image0.avif",
+              },
+              {
+                id: 10,
+                title: "Live DJ Set",
+                image: "https://images.bestroi.media/miles-morales/image1.avif",
+              },
+              {
+                id: 11,
+                title: "Club Night",
+                image: "https://images.bestroi.media/miles-morales/image10.avif",
+              },
+              {
+                id: 12,
+                title: "Mixing Session",
+                image: "https://images.bestroi.media/miles-morales/image11.avif",
+              },
+              {
+                id: 13,
+                title: "Event DJ",
+                image: "https://images.bestroi.media/miles-morales/image12.avif",
+              },
+              {
+                id: 14,
+                title: "Live Performance",
+                image: "https://images.bestroi.media/miles-morales/image13.avif",
+              },
+              {
+                id: 15,
+                title: "Professional DJ",
+                image: "https://images.bestroi.media/miles-morales/image16.avif",
+              },
+              {
+                id: 16,
+                title: "Club Performance",
+                image: "https://images.bestroi.media/miles-morales/image17.avif",
+              },
+              {
+                id: 17,
+                title: "DJ Miles Morales",
+                image: "https://images.bestroi.media/miles-morales/image2.avif",
+              },
+              {
+                id: 18,
+                title: "Event Setup",
+                image: "https://images.bestroi.media/miles-morales/image20.avif",
+              },
+              {
+                id: 19,
+                title: "Live Mix",
+                image: "https://images.bestroi.media/miles-morales/image21.avif",
+              },
+              {
+                id: 20,
+                title: "Behind the Decks",
+                image: "https://images.bestroi.media/miles-morales/image22.avif",
+              },
+              {
+                id: 21,
+                title: "DJ Session",
+                image: "https://images.bestroi.media/miles-morales/image4.avif",
+              },
+              {
+                id: 22,
+                title: "Professional Setup",
+                image: "https://images.bestroi.media/miles-morales/image5.avif",
+              },
+              {
+                id: 23,
+                title: "Event Performance",
+                image: "https://images.bestroi.media/miles-morales/image6.avif",
+              },
+              {
+                id: 24,
+                title: "Live DJ Set",
+                image: "https://images.bestroi.media/miles-morales/image7.avif",
+              },
+              {
+                id: 25,
+                title: "Club Night",
+                image: "https://images.bestroi.media/miles-morales/image8.avif",
+              },
+              {
+                id: 26,
+                title: "Mixing Session",
+                image: "https://images.bestroi.media/miles-morales/image9.avif",
+              },
+            ]}
+          />
         </SectionShell>
       </section>
 

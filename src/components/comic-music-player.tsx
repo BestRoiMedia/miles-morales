@@ -85,9 +85,7 @@ export function ComicMusicPlayer({ tracks }: ComicMusicPlayerProps) {
           {/* Play Button */}
           <button
             onClick={togglePlay}
-            className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full bg-[#FF2436] hover:bg-[#ff4d5c] 
-                       transition-all flex items-center justify-center shadow-lg shadow-red-500/20
-                       hover:scale-105 active:scale-95 mx-auto sm:mx-0"
+            className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full bg-[#FF2436] hover:bg-[#ff4d5c] transition-all flex items-center justify-center shadow-lg shadow-red-500/20 hover:scale-105 active:scale-95 mx-auto sm:mx-0"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? (

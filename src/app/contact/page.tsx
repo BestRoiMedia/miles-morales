@@ -57,10 +57,10 @@ export default function ContactPage() {
                 <div>
                   <p className="text-zinc-500 uppercase tracking-wider text-xs mb-1">Email</p>
                   <a 
-                    href={`mailto:${siteConfig.author.email}`}
+                    href="mailto:koran.dunbar@gmail.com"
                     className="text-[#FF2436] hover:text-[#ff4d5c] transition-colors"
                   >
-                    {siteConfig.author.email}
+                    koran.dunbar@gmail.com
                   </a>
                 </div>
                 <div>

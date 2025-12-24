@@ -140,6 +140,19 @@ export interface BreadcrumbSchema extends BaseSchema {
   }>;
 }
 
+// FAQPage Schema
+export interface FaqPageSchema extends BaseSchema {
+  '@type': 'FAQPage';
+  mainEntity: Array<{
+    '@type': 'Question';
+    name: string;
+    acceptedAnswer: {
+      '@type': 'Answer';
+      text: string;
+    };
+  }>;
+}
+
 /**
  * Generate Person schema for DJ Miles Morales
  */
@@ -391,7 +404,9 @@ export type JsonLdSchema =
   | ServiceSchema 
   | EventSchema 
   | WebSiteSchema 
-  | BreadcrumbSchema;
+  | BreadcrumbSchema
+  | FaqPageSchema;
+
 
 
 

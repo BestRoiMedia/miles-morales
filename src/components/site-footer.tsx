@@ -15,14 +15,22 @@ export function SiteFooter() {
             </p>
           </div>
 
-          {/* Right: Copyright & Contact Link */}
+          {/* Right: Links & Copyright */}
           <div className="text-center sm:text-right">
-            <Link 
-              href="/contact" 
-              className="text-[#FF2436] hover:text-[#ff4d5c] text-sm font-medium transition-colors"
-            >
-              Book Now →
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-2">
+              <Link 
+                href="/service-areas" 
+                className="text-zinc-400 hover:text-[#FF2436] text-sm font-medium transition-colors"
+              >
+                Service Areas
+              </Link>
+              <Link 
+                href="/contact" 
+                className="text-[#FF2436] hover:text-[#ff4d5c] text-sm font-medium transition-colors"
+              >
+                Book Now →
+              </Link>
+            </div>
             <p className="text-zinc-600 text-xs mt-2">
               © {new Date().getFullYear()} DJ Miles Morales. All rights reserved.
             </p>

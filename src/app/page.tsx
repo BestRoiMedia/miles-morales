@@ -93,7 +93,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="comic-panel aspect-[3/4] overflow-hidden group">
                 <Image
-                  src="/images/dj-miles-morales.jpg"
+                  src="https://images.bestroi.media/miles-morales/Koran%20%281%29.avif"
                   alt="DJ Miles Morales"
                   fill
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -144,7 +144,7 @@ export default function HomePage() {
             <div className="comic-panel overflow-hidden group">
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/vinylcon.jpg"
+                  src="https://images.bestroi.media/miles-morales/image0.avif"
                   alt="Corporate Events"
                   fill
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -165,7 +165,7 @@ export default function HomePage() {
             <div className="comic-panel overflow-hidden group border-[#FF2436] shadow-[0_0_20px_rgba(255,36,54,0.2)]">
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/djing-at-a-wedding.jpg"
+                  src="https://images.bestroi.media/miles-morales/IMG_5089.avif"
                   alt="Wedding DJ Setup"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -186,7 +186,7 @@ export default function HomePage() {
             <div className="comic-panel overflow-hidden group">
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/djing-at-a-club.jpg"
+                  src="https://images.bestroi.media/miles-morales/image2.avif"
                   alt="Club Performance"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

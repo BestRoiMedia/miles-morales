@@ -49,7 +49,7 @@ export function ContactForm() {
     }
 
     try {
-      const response = await fetch('https://formspree.io/f/mwpgbdbl', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +64,6 @@ export function ContactForm() {
           guestCount: formData.guestCount,
           budgetRange: formData.budgetRange,
           message: formData.message,
-          _subject: `New Booking Inquiry from ${formData.name}`,
         }),
       });
 
