@@ -71,9 +71,68 @@ export function ContactForm() {
         setSubmitStatus('success');
         setFormData(initialFormData);
       } else {
+        // Try to parse error response
+        const status = response.status;
+        const statusText = response.statusText;
+        const contentType = response.headers.get('content-type');
+        
+        console.error('=== EMAIL SEND ERROR ===');
+        console.error('Status:', status);
+        console.error('Status Text:', statusText);
+        console.error('Content-Type:', contentType);
+        
+        let errorData: any = {};
+        let rawText = '';
+        
+        try {
+          // Get the raw response text first
+          rawText = await response.text();
+          console.error('Raw response text length:', rawText.length);
+          console.error('Raw response text:', rawText);
+          
+          // Try to parse as JSON
+          if (rawText && rawText.trim()) {
+            try {
+              errorData = JSON.parse(rawText);
+              console.error('Successfully parsed JSON:', errorData);
+            } catch (jsonError) {
+              // If not valid JSON, use the raw text
+              console.error('Failed to parse as JSON:', jsonError);
+              errorData = { 
+                error: rawText || `HTTP ${status}: ${statusText}`,
+                rawResponse: rawText
+              };
+            }
+          } else {
+            // Empty response body
+            console.error('Response body is empty');
+            errorData = { 
+              error: `HTTP ${status}: ${statusText} (empty response body)`,
+              status: status,
+              statusText: statusText
+            };
+          }
+        } catch (parseError) {
+          console.error('Failed to read error response:', parseError);
+          errorData = { 
+            error: `HTTP ${status}: ${statusText}`,
+            parseError: parseError instanceof Error ? parseError.message : 'Unknown parse error',
+            status: status,
+            statusText: statusText
+          };
+        }
+        
+        // Log the final error data
+        console.error('Final error data object:', errorData);
+        console.error('Error message:', errorData.error);
+        console.error('Error details:', errorData.details);
+        console.error('Error help:', errorData.help);
+        console.error('=======================');
+        
         setSubmitStatus('error');
       }
-    } catch {
+    } catch (error) {
+      console.error('Network error:', error);
       setSubmitStatus('error');
     }
 

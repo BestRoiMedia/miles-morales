@@ -17,24 +17,52 @@ interface ContactFormData {
 async function sendEmail(formData: ContactFormData): Promise<void> {
   const smtpHost = process.env.ZOHO_SMTP_HOST || 'smtppro.zoho.com';
   const smtpPort = parseInt(process.env.ZOHO_SMTP_PORT || '587', 10);
-  const smtpUser = process.env.ZOHO_SMTP_USER || 'no-reply@djmilesmorales.com';
-  const smtpPass = process.env.ZOHO_SMTP_PASS;
+  const smtpUser = (process.env.ZOHO_SMTP_USER || 'no-reply@djmilesmorales.com').trim();
+  const smtpPass = process.env.ZOHO_SMTP_PASS?.trim();
+
+  // Log configuration (without password) for debugging
+  console.log('SMTP Configuration:', {
+    host: smtpHost,
+    port: smtpPort,
+    user: smtpUser,
+    hasPassword: !!smtpPass,
+    passwordLength: smtpPass ? smtpPass.length : 0,
+    passwordIsPlaceholder: smtpPass?.includes('your_zoho_smtp_password_here') || smtpPass?.includes('your password')
+  });
 
   if (!smtpPass) {
-    throw new Error('Missing ZOHO_SMTP_PASS environment variable');
+    throw new Error('Missing ZOHO_SMTP_PASS environment variable. Please configure your SMTP password in environment variables.');
+  }
+
+  // Check if password is still the placeholder
+  if (smtpPass.includes('your_zoho_smtp_password_here') || smtpPass.includes('your password')) {
+    throw new Error('ZOHO_SMTP_PASS appears to be a placeholder. Please replace it with your actual app password in .env.local');
+  }
+
+  if (!smtpUser) {
+    throw new Error('Missing ZOHO_SMTP_USER environment variable. Please configure your SMTP username in environment variables.');
   }
 
   const transporter = nodemailer.createTransport({
     host: smtpHost,
     port: smtpPort,
-    secure: smtpPort === 465, // true for 465, false for other ports
+    secure: smtpPort === 465, // true for 465 (SSL), false for 587 (TLS)
     auth: {
       user: smtpUser,
       pass: smtpPass,
     },
+    // For port 587, ensure TLS is used
+    ...(smtpPort === 587 && {
+      requireTLS: true,
+      tls: {
+        rejectUnauthorized: false, // Allow self-signed certificates if needed
+      },
+    }),
   });
 
-  const fromEmail = 'no-reply@djmilesmorales.com';
+  // Use the authenticated email as the from address (or allow override)
+  // For Zoho, the from address should match the authenticated account
+  const fromEmail = process.env.ZOHO_FROM_EMAIL || smtpUser;
   const toEmails = ['koran.dunbar@gmail.com', 'mitch@bestroi.media'];
 
   // Format event type for display
@@ -105,6 +133,14 @@ Message:
 ${formData.message}
   `.trim();
 
+  // Verify connection before sending
+  try {
+    await transporter.verify();
+  } catch (verifyError) {
+    const verifyMessage = verifyError instanceof Error ? verifyError.message : 'Unknown verification error';
+    throw new Error(`SMTP connection verification failed: ${verifyMessage}`);
+  }
+
   // Send email to all recipients
   await transporter.sendMail({
     from: `"DJ Miles Morales" <${fromEmail}>`,
@@ -136,9 +172,62 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    // Log full error details for debugging
     console.error('Error sending email:', error);
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    
+    // Provide more detailed error information in development
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorName = error instanceof Error ? error.name : 'Error';
+    
+    // Log error details for debugging
+    console.log('Error matching - message:', errorMessage);
+    console.log('Error matching - name:', errorName);
+    
+    // Check for common issues (case-insensitive)
+    const lowerErrorMessage = errorMessage.toLowerCase();
+    if (lowerErrorMessage.includes('zoho_smtp_pass') || lowerErrorMessage.includes('missing')) {
+      return NextResponse.json(
+        { 
+          error: 'Email service configuration error. Please check server environment variables.',
+          details: isDevelopment ? errorMessage : undefined
+        },
+        { status: 500 }
+      );
+    }
+    
+    if (lowerErrorMessage.includes('authentication') || lowerErrorMessage.includes('invalid login') || lowerErrorMessage.includes('535') || lowerErrorMessage.includes('eauth') || lowerErrorMessage.includes('smtp connection verification failed')) {
+      return NextResponse.json(
+        { 
+          error: 'Email authentication failed. Please check your Zoho SMTP credentials. If you have 2FA enabled, you may need to use an app-specific password instead of your regular password.',
+          details: isDevelopment ? errorMessage : undefined,
+          help: isDevelopment ? 'Zoho requires app-specific passwords for SMTP when 2FA is enabled. Generate one in your Zoho account settings.' : undefined
+        },
+        { status: 500 }
+      );
+    }
+    
+    if (lowerErrorMessage.includes('econnrefused') || lowerErrorMessage.includes('timeout')) {
+      return NextResponse.json(
+        { 
+          error: 'Could not connect to email server. Please check SMTP settings.',
+          details: isDevelopment ? errorMessage : undefined
+        },
+        { status: 500 }
+      );
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { 
+        error: 'Failed to send email',
+        details: isDevelopment ? errorMessage : undefined,
+        errorType: isDevelopment ? errorName : undefined
+      },
       { status: 500 }
     );
   }
